@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>wwwtcom — создание сайтов</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="wwwtcom — услуги по созданию современных, быстрых и адаптивных сайтов." />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #050810;
+      --bg-soft: #0b1020;
+      --accent: #4f8cff;
+      --accent-soft: rgba(79, 140, 255, 0.14);
+      --text-main: #f5f7ff;
+      --text-muted: #a3aac4;
+      --border-soft: rgba(255, 255, 255, 0.06);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.65);
+      --transition-fast: 0.25s ease;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #1b2345 0, #050810 55%, #020308 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 18px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(79, 140, 255, 0.08)
+      );
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-main {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .logo-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: var(--transition-fast);
+      border: 1px solid transparent;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(5, 8, 16, 0.4);
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 6px;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(5, 8, 16, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 18px rgba(79, 140, 255, 0.6);
+    }
+
+    .lang-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+
+    main {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .lang-screen {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .lang-screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-main {
+      padding: 26px 24px 22px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(
+          circle at top left,
+          rgba(79, 140, 255, 0.12),
+          transparent 60%
+        ),
+        rgba(5, 8, 16, 0.96);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .hero-kicker {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 34px);
+      line-height: 1.18;
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(5, 8, 16, 0.85);
+      backdrop-filter: blur(10px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f8cff, #7f5dff);
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(79, 140, 255, 0.65);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(79, 140, 255, 0.85);
+    }
+
+    .btn-ghost {
+      background: rgba(5, 8, 16, 0.85);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-side {
+      padding: 20px 18px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(
+          circle at top,
+          rgba(127, 93, 255, 0.2),
+          transparent 65%
+        ),
+        rgba(5, 8, 16, 0.98);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+    }
+
+    .hero-side-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .contact-item-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 1px;
+    }
+
+    .contact-item-value a,
+    .contact-item-value span {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item-value a:hover {
+      text-decoration: underline;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(5, 8, 16, 0.9);
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .section {
+      padding: 18px 18px 20px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(5, 8, 16, 0.96)
+      );
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      padding: 14px 14px 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: rgba(5, 8, 16, 0.96);
+      transition: var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(79, 140, 255, 0.52);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.8);
+      background: radial-gradient(
+          circle at top left,
+          rgba(79, 140, 255, 0.16),
+          transparent 60%
+        ),
+        rgba(5, 8, 16, 0.98);
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .card-text {
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-size: 12px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .step {
+      padding: 12px 12px 13px;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      background: rgba(5, 8, 16, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .step-number {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+
+    .step-title {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .step-text {
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .cta {
+      margin-top: 4px;
+      padding: 18px 18px 18px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(79, 140, 255, 0.56);
+      background: radial-gradient(
+          circle at center,
+          rgba(79, 140, 255, 0.18),
+          transparent 65%
+        ),
+        rgba(5, 8, 16, 0.96);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .cta-text {
+      font-size: 14px;
+      max-width: 540px;
+      line-height: 1.6;
+    }
+
+    .cta-strong {
+      font-weight: 600;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-wrap: wrap;
+      }
+      nav {
+        display: none;
+      }
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      .steps {
+        grid-template-columns: 1fr;
+      }
+      .hero-main,
+      .hero-side,
+      .section,
+      .cta {
+        padding: 16px 14px 16px;
+      }
+      .page {
+        padding-inline: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-main">wwwtcom</div>
+        <div class="logo-tagline">Custom websites · Design · Launch</div>
+      </div>
+
+      <!-- ОБНОВЛЁННОЕ МЕНЮ -->
+      <nav>
+        <a
+          class="nav-link"
+          data-label-ru="Услуги"
+          data-label-ua="Послуги"
+          data-label-en="Services"
+          data-label-pl="Oferta"
+          data-href-ru="#services"
+          data-href-ua="#services-ua"
+          data-href-en="#services-en"
+          data-href-pl="#services-pl"
+          href="#services"
+        >Услуги</a>
+
+        <a
+          class="nav-link"
+          data-label-ru="Процесс"
+          data-label-ua="Процес"
+          data-label-en="Process"
+          data-label-pl="Proces"
+          data-href-ru="#process"
+          data-href-ua="#process-ua"
+          data-href-en="#process-en"
+          data-href-pl="#process-pl"
+          href="#process"
+        >Процесс</a>
+
+        <a
+          class="nav-link"
+          data-label-ru="Контакты"
+          data-label-ua="Контакти"
+          data-label-en="Contacts"
+          data-label-pl="Kontakt"
+          data-href-ru="#contact"
+          data-href-ua="#contact-ua"
+          data-href-en="#contact-en"
+          data-href-pl="#contact-pl"
+          href="#contact"
+        >Контакты</a>
+      </nav>
+
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="ua">UA</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="pl">PL</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- RUSSIAN -->
+      <section class="lang-screen active" data-lang-screen="ru">
+        <section class="hero">
+          <div class="hero-main">
+            <div class="hero-kicker">Создание сайтов под ключ</div>
+            <h1 class="hero-title">
+              Я делаю сайты, которые продают, объясняют и вызывают доверие.
+            </h1>
+            <p class="hero-subtitle">
+              От первой идеи до запуска — полностью беру на себя сайт для вашего
+              бизнеса, личного бренда или проекта. Чистый дизайн, понятная
+              структура, быстрая загрузка и адаптация под телефон.
+            </p>
+
+            <div class="hero-badges">
+              <span class="badge">Лендинги и многостраничные сайты</span>
+              <span class="badge">Адаптив под телефон и планшет</span>
+              <span class="badge">Структура, которая ведёт к заявке</span>
+            </div>
+
+            <div class="hero-cta">
+              <a href="#contact" class="btn-primary">
+                Обсудить проект в Telegram →
+              </a>
+              <a href="#services" class="btn-ghost">
+                Посмотреть, что именно я делаю
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-side" id="contact">
+            <div>
+              <div class="hero-side-title">Контакты для связи</div>
+              <div class="contact-list">
+                <div>
+                  <div class="contact-item-label">Telegram</div>
+                  <div class="contact-item-value">
+                    <a href="https://t.me/wwwtcom" target="_blank">@wwwtcom</a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Instagram</div>
+                  <div class="contact-item-value">
+                    <a href="https://instagram.com/wwwtcom" target="_blank">
+                      @wwwtcom
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Телефон (PL)</div>
+                  <div class="contact-item-value">
+                    <a href="tel:+48576622661">+48 576 622 661</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="contact-item-label">Как работаю</div>
+              <div class="pill">
+                ⚡ Ответ обычно в течение дня · Подробно разбираю задачу перед стартом
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="services">
+          <div class="section-header">
+            <h2 class="section-title">Что именно я делаю</h2>
+            <p class="section-subtitle">
+              Простыми словами: превращаю ваши идеи и услуги в аккуратный,
+              понятный и живой сайт.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <h3 class="card-title">Лендинги и сайты услуг</h3>
+              <p class="card-text">
+                Одностраничные сайты, которые чётко объясняют, кто вы, чем вы
+                полезны и почему именно к вам нужно обратиться. Логичная
+                структура, акценты, кнопки, которые ведут к заявке.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Многостраничные сайты</h3>
+              <p class="card-text">
+                Структура под бизнес: главная, услуги, о компании, отзывы,
+                контакты, FAQ. Всё связано между собой и выглядит как единый
+                бренд, а не набор случайных страниц.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Редизайн и доработка</h3>
+              <p class="card-text">
+                Если сайт уже есть, но он устарел или «не продаёт» — разберу,
+                что мешает, предложу решения и аккуратно обновлю внешний вид и
+                логику.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Адаптация под телефон</h3>
+              <p class="card-text">
+                Больше половины трафика — с мобильных. Я сразу делаю сайт
+                удобным для телефона: крупные шрифты, понятные кнопки, ничего не
+                «прыгает».
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Тексты, которые можно читать</h3>
+              <p class="card-text">
+                Помогаю с формулировками: меньше воды, больше смысла. Ваши
+                преимущества объясняются простым языком, без сухих шаблонов.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Подготовка к запуску</h3>
+              <p class="card-text">
+                Помогу с базовыми техническими вопросами: домен, хостинг,
+                подключение сайта, базовая SEO-структура и понятные вам доступы.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="process">
+          <div class="section-header">
+            <h2 class="section-title">Как проходит работа</h2>
+            <p class="section-subtitle">
+              Без хаоса и лишних созвонов: коротко, по шагам.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">Шаг 1</div>
+              <div class="step-title">Знакомство и задача</div>
+              <div class="step-text">
+                Вы пишете в Telegram или Instagram, рассказываете, какой сайт
+                нужен и для чего. Я задаю вопросы и уточняю детали.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Шаг 2</div>
+              <div class="step-title">Структура и концепция</div>
+              <div class="step-text">
+                Предлагаю структуру сайта, основные блоки, примерное содержание.
+                Согласовываем направление и стиль.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Шаг 3</div>
+              <div class="step-title">Дизайн и верстка</div>
+              <div class="step-text">
+                Собираю аккуратный, живой интерфейс: от первого экрана до блока
+                контактов. Показываю промежуточный результат.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Шаг 4</div>
+              <div class="step-title">Финиш и запуск</div>
+              <div class="step-text">
+                Вносим правки, подключаем домен и показываем сайт миру. Вы
+                получаете готовый инструмент, а не просто «красивую картинку».
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cta">
+          <p class="cta-text">
+            <span class="cta-strong">У вас уже есть идея, продукт или услуга?</span>
+            Напишите пару предложений о том, что вы делаете, и я предложу,
+            как это лучше оформить на сайте: структура, первые блоки и формат.
+          </p>
+          <div class="hero-cta">
+            <a href="https://t.me/wwwtcom" target="_blank" class="btn-primary">
+              Написать в Telegram
+            </a>
+            <a href="tel:+48576622661" class="btn-ghost">
+              Позвонить / WhatsApp: +48 576 622 661
+            </a>
+          </div>
+        </section>
+
+        <div class="footer">
+          wwwtcom · создание сайтов · RU / UA / EN / PL
+        </div>
+      </section>
+
+      <!-- UKRAINIAN -->
+      <section class="lang-screen" data-lang-screen="ua">
+        <section class="hero">
+          <div class="hero-main">
+            <div class="hero-kicker">Створення сучасних сайтів</div>
+            <h1 class="hero-title">
+              Роблю сайти, які пояснюють, навіщо ви клієнту — і приводять заявки.
+            </h1>
+            <p class="hero-subtitle">
+              Від першого повідомлення до запуску — повністю закриваю питання
+              сайту для бізнесу, особистого бренду або проєкту. Чистий дизайн,
+              продумана структура, швидке завантаження та адаптація під телефон.
+            </p>
+
+            <div class="hero-badges">
+              <span class="badge">Лендінги та багатоcторінкові сайти</span>
+              <span class="badge">Зручно з телефону та планшета</span>
+              <span class="badge">Сенс, а не просто «красиво»</span>
+            </div>
+
+            <div class="hero-cta">
+              <a href="#contact-ua" class="btn-primary">
+                Написати в Telegram →
+              </a>
+              <a href="#services-ua" class="btn-ghost">
+                Подивитися перелік послуг
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-side" id="contact-ua">
+            <div>
+              <div class="hero-side-title">Контакти</div>
+              <div class="contact-list">
+                <div>
+                  <div class="contact-item-label">Telegram</div>
+                  <div class="contact-item-value">
+                    <a href="https://t.me/wwwtcom" target="_blank">@wwwtcom</a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Instagram</div>
+                  <div class="contact-item-value">
+                    <a href="https://instagram.com/wwwtcom" target="_blank">
+                      @wwwtcom
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Телефон (Польща)</div>
+                  <div class="contact-item-value">
+                    <a href="tel:+48576622661">+48 576 622 661</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="contact-item-label">Формат роботи</div>
+              <div class="pill">
+                ⚡ Оперативна відповідь · Чіткі етапи · Максимум конкретики
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="services-ua">
+          <div class="section-header">
+            <h2 class="section-title">Що я роблю</h2>
+            <p class="section-subtitle">
+              Допомагаю перетворити ідеї та послуги на зрозумілий сайт, який не
+              соромно показати клієнту.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <h3 class="card-title">Лендінги</h3>
+              <p class="card-text">
+                Односторінкові сайти з чітким змістом: хто ви, що робите, чому
+                вам можна довіряти. Кожен блок логічно веде користувача до дії.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Багатосторінкові сайти</h3>
+              <p class="card-text">
+                Сайти для бізнесу з окремими сторінками: головна, послуги,
+                портфоліо, відгуки, контакти. Єдина візуальна мова й продумана
+                навігація.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Оновлення існуючих сайтів</h3>
+              <p class="card-text">
+                Якщо сайт застарів або виглядає «як із 2010», без хаосу
+                переробляю структуру та вигляд, щоб він працював краще для вас
+                і клієнтів.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Адаптація під мобільні</h3>
+              <p class="card-text">
+                Сайт однаково зручний на телефоні, планшеті та компʼютері.
+                Нічого не зʼїжджає, кнопки легко натискаються пальцем.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Тексти для сайту</h3>
+              <p class="card-text">
+                Допомагаю сформулювати пропозицію людською мовою: без
+                перевантажених абзаців, чітко та по суті.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Підготовка до запуску</h3>
+              <p class="card-text">
+                Пояснюю, що робити з доменом, хостингом, підключенням сайту.
+                Даю зрозумілі інструкції й доступи.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="process-ua">
+          <div class="section-header">
+            <h2 class="section-title">Як ми працюємо</h2>
+            <p class="section-subtitle">
+              Кілька кроків — і у вас є готовий сайт, а не нескінченний «процес».
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">Крок 1</div>
+              <div class="step-title">Запит</div>
+              <div class="step-text">
+                Ви пишете в Telegram або Instagram, коротко описуєте бізнес
+                та що очікуєте від сайту.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Крок 2</div>
+              <div class="step-title">Структура</div>
+              <div class="step-text">
+                Пропоную логічну структуру сторінок і блоків, щоб клієнту було
+                легко зрозуміти, чим ви займаєтесь.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Крок 3</div>
+              <div class="step-title">Дизайн і верстка</div>
+              <div class="step-text">
+                Збираю сайт: стилі, відступи, блоки, кнопки. Перевіряю, як усе
+                виглядає на різних пристроях.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Крок 4</div>
+              <div class="step-title">Запуск</div>
+              <div class="step-text">
+                Вносимо фінальні правки та публікуємо сайт. Даю рекомендації,
+                як далі з ним працювати.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cta">
+          <p class="cta-text">
+            <span class="cta-strong">Маєте ідею чи вже працюючий бізнес?</span>
+            Напишіть коротко, що саме ви робите, і я запропоную формат сайту та
+            перші блоки, з яких варто почати.
+          </p>
+          <div class="hero-cta">
+            <a href="https://t.me/wwwtcom" target="_blank" class="btn-primary">
+              Написати в Telegram
+            </a>
+            <a href="tel:+48576622661" class="btn-ghost">
+              Подзвонити: +48 576 622 661
+            </a>
+          </div>
+        </section>
+
+        <div class="footer">
+          wwwtcom · розробка сайтів · RU / UA / EN / PL
+        </div>
+      </section>
+
+      <!-- ENGLISH -->
+      <section class="lang-screen" data-lang-screen="en">
+        <section class="hero">
+          <div class="hero-main">
+            <div class="hero-kicker">Modern, clean websites</div>
+            <h1 class="hero-title">
+              I build websites that look serious and speak your client’s language.
+            </h1>
+            <p class="hero-subtitle">
+              From idea to launch — I handle the whole website for your business,
+              personal brand or side project. Clear structure, fast loading and
+              a layout that works on any device.
+            </p>
+
+            <div class="hero-badges">
+              <span class="badge">Landing pages & small business sites</span>
+              <span class="badge">Mobile–first, responsive layout</span>
+              <span class="badge">Content focused on clarity & trust</span>
+            </div>
+
+            <div class="hero-cta">
+              <a href="#contact-en" class="btn-primary">
+                Message me on Telegram →
+              </a>
+              <a href="#services-en" class="btn-ghost">
+                See what I can build for you
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-side" id="contact-en">
+            <div>
+              <div class="hero-side-title">Contact details</div>
+              <div class="contact-list">
+                <div>
+                  <div class="contact-item-label">Telegram</div>
+                  <div class="contact-item-value">
+                    <a href="https://t.me/wwwtcom" target="_blank">@wwwtcom</a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Instagram</div>
+                  <div class="contact-item-value">
+                    <a href="https://instagram.com/wwwtcom" target="_blank">
+                      @wwwtcom
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Phone (Poland)</div>
+                  <div class="contact-item-value">
+                    <a href="tel:+48576622661">+48 576 622 661</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="contact-item-label">What you get</div>
+              <div class="pill">
+                ⚡ Direct communication · Clear scope · No unnecessary complexity
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="services-en">
+          <div class="section-header">
+            <h2 class="section-title">Services</h2>
+            <p class="section-subtitle">
+              I turn your product or service into a website that looks reliable
+              and is easy to understand.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <h3 class="card-title">Landing pages</h3>
+              <p class="card-text">
+                One–page websites focused on one main action: call, message,
+                booking or sign-up. Clear story, smooth scroll and visible
+                call-to-action buttons.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Business websites</h3>
+              <p class="card-text">
+                Multi–page sites for companies and personal brands: home,
+                services, about, reviews, contact and more — all in one visual
+                style.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Redesign & clean-up</h3>
+              <p class="card-text">
+                If you already have a website but it looks outdated or chaotic,
+                I can reorganise the structure and refresh the design without
+                breaking what already works.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Mobile optimisation</h3>
+              <p class="card-text">
+                I make sure the website is easy to use on phones: readable text,
+                comfortable buttons and no random layout shifts.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Copy support</h3>
+              <p class="card-text">
+                I help you simplify your message so visitors quickly understand
+                what you do, who you work with and why they should choose you.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Launch assistance</h3>
+              <p class="card-text">
+                Help with domain, hosting and going live. You get access details
+                and a website that is ready for real visitors.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="process-en">
+          <div class="section-header">
+            <h2 class="section-title">Workflow</h2>
+            <p class="section-subtitle">
+              A straightforward process with no endless calls or documents.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">Step 1</div>
+              <div class="step-title">Short brief</div>
+              <div class="step-text">
+                You send a message on Telegram or Instagram with a quick
+                description of your business and what you expect from the site.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Step 2</div>
+              <div class="step-title">Structure</div>
+              <div class="step-text">
+                I suggest a page structure and the key sections so your future
+                clients can quickly orient themselves.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Step 3</div>
+              <div class="step-title">Design & build</div>
+              <div class="step-text">
+                I design and build the website, check spacing, hierarchy and
+                how everything behaves on mobile and desktop.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Step 4</div>
+              <div class="step-title">Review & launch</div>
+              <div class="step-text">
+                We do a final review, apply your comments and publish the site
+                on your domain.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cta">
+          <p class="cta-text">
+            <span class="cta-strong">Already have a project or idea?</span>
+            Send a short message about what you do and I’ll come back with a
+            suggested site format and first sections to include.
+          </p>
+          <div class="hero-cta">
+            <a href="https://t.me/wwwtcom" target="_blank" class="btn-primary">
+              Contact via Telegram
+            </a>
+            <a href="tel:+48576622661" class="btn-ghost">
+              Call: +48 576 622 661
+            </a>
+          </div>
+        </section>
+
+        <div class="footer">
+          wwwtcom · websites & front-end · RU / UA / EN / PL
+        </div>
+      </section>
+
+      <!-- POLISH -->
+      <section class="lang-screen" data-lang-screen="pl">
+        <section class="hero">
+          <div class="hero-main">
+            <div class="hero-kicker">Nowoczesne strony internetowe</div>
+            <h1 class="hero-title">
+              Tworzę strony, które wyglądają profesjonalnie i jasno tłumaczą ofertę.
+            </h1>
+            <p class="hero-subtitle">
+              Od pomysłu do uruchomienia – zajmuję się całym procesem stworzenia
+              strony dla firmy, marki osobistej lub projektu. Przejrzysty układ,
+              szybkie działanie i pełna responsywność.
+            </p>
+
+            <div class="hero-badges">
+              <span class="badge">Strony wizytówki i landing pages</span>
+              <span class="badge">Responsywność na każdy ekran</span>
+              <span class="badge">Treść skupiona na kliencie</span>
+            </div>
+
+            <div class="hero-cta">
+              <a href="#contact-pl" class="btn-primary">
+                Napisz na Telegramie →
+              </a>
+              <a href="#services-pl" class="btn-ghost">
+                Zobacz zakres usług
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-side" id="contact-pl">
+            <div>
+              <div class="hero-side-title">Kontakt</div>
+              <div class="contact-list">
+                <div>
+                  <div class="contact-item-label">Telegram</div>
+                  <div class="contact-item-value">
+                    <a href="https://t.me/wwwtcom" target="_blank">@wwwtcom</a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Instagram</div>
+                  <div class="contact-item-value">
+                    <a href="https://instagram.com/wwwtcom" target="_blank">
+                      @wwwtcom
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="contact-item-label">Telefon</div>
+                  <div class="contact-item-value">
+                    <a href="tel:+48576622661">+48 576 622 661</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="contact-item-label">Współpraca</div>
+              <div class="pill">
+                ⚡ Szybki kontakt · Jasne etapy pracy · Bez zbędnej komplikacji
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="services-pl">
+          <div class="section-header">
+            <h2 class="section-title">Co oferuję</h2>
+            <p class="section-subtitle">
+              Zamieniam Twoją usługę lub pomysł w czytelną i estetyczną stronę internetową.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <h3 class="card-title">Strony typu landing page</h3>
+              <p class="card-text">
+                Jednostronicowe strony nastawione na konkretny cel: kontakt,
+                wycena, zapis czy rezerwacja. Jasny przekaz, przejrzyste bloki
+                i widoczne przyciski.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Strony firmowe</h3>
+              <p class="card-text">
+                Strony dla małych i średnich firm: oferta, o firmie, realizacje,
+                opinie, kontakt. Spójny wygląd i intuicyjna nawigacja.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Odświeżenie istniejącej strony</h3>
+              <p class="card-text">
+                Jeśli strona wygląda „staro” lub jest chaotyczna, uporządkuję
+                układ i odświeżę design, żeby lepiej pracowała на wizerunek.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Dopasowanie do urządzeń mobilnych</h3>
+              <p class="card-text">
+                Strona, która dobrze wygląda na telefonie, tablecie i laptopie.
+                Czytelne teksty, wygodne przyciski, brak nerwowego przewijania.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Wsparcie w treści</h3>
+              <p class="card-text">
+                Pomagam uprościć opisy usług i oferty, tak aby klient szybko
+                zrozumiał, co dokładnie robisz i jak możesz mu pomóc.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Przygotowanie do startu</h3>
+              <p class="card-text">
+                Pomoc z domeną, hostingiem i publikacją strony. Przekazuję доступ
+                i podstawowe wskazówki, co dalej.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="process-pl">
+          <div class="section-header">
+            <h2 class="section-title">Jak wygląda процесс</h2>
+            <p class="section-subtitle">
+              Konkretnie, krok po kroku – bez niekończących się spotkań.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">Krok 1</div>
+              <div class="step-title">Krótki opis</div>
+              <div class="step-text">
+                Piszesz na Telegramie lub Instagramie, opisujesz firmę i
+                oczekiwania wobec strony.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Krok 2</div>
+              <div class="step-title">Propozycja układu</div>
+              <div class="step-text">
+                Proponuję strukturę strony i główne sekcje, które najlepiej
+                pokażą Twoją ofertę.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Krok 3</div>
+              <div class="step-title">Projekt i wykonanie</div>
+              <div class="step-text">
+                Projektuję i tworzę stronę, dbając о czytelność, hierarchię
+                информации i responsywność.
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">Krok 4</div>
+              <div class="step-title">Wdrożenie</div>
+              <div class="step-text">
+                Wspólnie sprawdzamy całość, nanosimy poprawки i uruchamiamy
+                stronę na Twojej domenie.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cta">
+          <p class="cta-text">
+            <span class="cta-strong">Masz usługę, produkt lub pomysł?</span>
+            Napisz kilka zdań o tym, czym się zajmujesz, a zaproponuję format
+            strony oraz pierwsze секcje, od których warto zacząć.
+          </p>
+          <div class="hero-cta">
+            <a href="https://t.me/wwwtcom" target="_blank" class="btn-primary">
+              Napisz na Telegramie
+            </a>
+            <a href="tel:+48576622661" class="btn-ghost">
+              Zadzwoń: +48 576 622 661
+            </a>
+          </div>
+        </section>
+
+        <div class="footer">
+          wwwtcom · tworzenie stron www · RU / UA / EN / PL
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const langButtons = document.querySelectorAll(".lang-btn");
+    const screens = document.querySelectorAll(".lang-screen");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    const suffixMap = {
+      ru: "Ru",
+      ua: "Ua",
+      en: "En",
+      pl: "Pl",
+    };
+
+    function setLanguage(lang) {
+      // кнопки
+      langButtons.forEach((b) => b.classList.toggle("active", b.dataset.lang === lang));
+
+      // экраны
+      screens.forEach((screen) => {
+        screen.classList.toggle("active", screen.dataset.langScreen === lang);
+      });
+
+      // lang атрибут html
+      document.documentElement.lang = lang === "ua" ? "uk" : lang;
+
+      // обновляем подписи и якоря в меню
+      const suffix = suffixMap[lang];
+
+      navLinks.forEach((link) => {
+        const labelKey = "label" + suffix;
+        const hrefKey = "href" + suffix;
+
+        if (link.dataset[labelKey]) {
+          link.textContent = link.dataset[labelKey];
+        }
+        if (link.dataset[hrefKey]) {
+          link.setAttribute("href", link.dataset[hrefKey]);
+        }
+      });
+    }
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const lang = btn.dataset.lang;
+        setLanguage(lang);
+      });
+    });
+
+    // при загрузке выставляем RU
+    setLanguage("ru");
+  </script>
+</body>
+</html>
+
